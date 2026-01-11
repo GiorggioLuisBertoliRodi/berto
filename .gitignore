@@ -1,25 +1,34 @@
-# Entorno virtual
-venv/
-ENV/
-env/
-
-# Archivos de Python compilados
+# Python
 *.pyc
 __pycache__/
 
-# Base de datos local
-db.sqlite3
+# Entornos virtuales
+venv/
+env/
 
-# Archivos de medios
-media/
+# Bases de datos locales
+*.sqlite3
+
+# Configuración de IDEs
+.vscode/
+*.sublime-workspace
+*.sublime-project
 
 # Archivos de sistema
 .DS_Store
 Thumbs.db
+*.lnk
+*.log
 
-# Archivos de IDE
-.vscode/
-.idea/
-
-# Carpeta de static generada por collectstatic
-staticfiles/
+# Archivos temporales de OneDrive / Windows
+AppData/
+Contacts/
+Downloads/
+Favorites/
+Links/
+Music/
+Saved Games/
+Searches/
+Videos/
+ntuser.dat*
+OneDrive/
