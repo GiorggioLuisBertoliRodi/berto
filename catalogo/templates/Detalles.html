@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ producto_detalles.Nombre }}</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+    <!-- LOGO -->
+    <div class="avatar">
+        <img src="/media/productos/Unik_logo.jpg" alt="logo">
+    </div>
+
+        <!-- DETALLE DEL PRODUCTO -->
+        <div class="detalle-container">
+            <div class="detalle-card">
+                <h2 class="detalle-nombre">{{ producto_detalles.Nombre }}</h2>
+                <div class="detalle-imagen">
+                    <img src="{{ producto_detalles.Imagen.url }}" alt="{{ producto_detalles.Nombre }}">
+                </div>
+
+                <div class="detalle-info">
+                    {% if producto_detalles.Descripcion %}
+                        <p class="detalle-descripcion"><strong>Descripción:</strong> {{ producto_detalles.Descripcion }}</p>
+                    {% else %}
+                        <p class="detalle-descripcion"><strong>Descripción:</strong> No hay descripción</p>
+                    {% endif %}
+                    <p class="detalle-categoria"><strong>Categoría:</strong> {{ producto_detalles.categoria }}</p>
+                    <p class="detalle-precio"><strong>Precio:</strong> ₲{{ producto_detalles.Precio }}</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="{% url 'home' %}" class="btn-volver">Volver al inicio</a>
+
+</body>
+</html>

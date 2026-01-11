@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Productos Destacados</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+
+    <!-- LOGO -->
+    <div class="avatar">
+        <img src="/media/productos/Unik_logo.jpg" alt="logo">
+    </div>
+
+    <div class="container">
+        <!-- HEADER Y BUSCADOR -->
+        <header class="header">
+            <form method="GET" action="{% url 'busqueda_resultado' %}" class="buscador">
+                <input type="text" name="busqueda" placeholder="Buscar productos...">
+                <button type="submit">Buscar</button>
+            </form>
+            <h1>Productos Destacados</h1>
+        </header>
+
+
+        <!-- GRID DE PRODUCTOS -->
+        {% if Productos_home %}
+            <div class="productos-grid">
+                {% for producto in Productos_home %}
+                    <div class="producto-card">
+                        <h3 class="producto-nombre">{{ producto.Nombre }}</h3>
+                        <div class="producto-imagen">
+                            <img src="{{ producto.Imagen.url }}" alt="{{ producto.Nombre }}">
+                        </div>
+                        <p class="producto-precio">₲ {{ producto.Precio }}</p>
+                        <a class="btn-detalles" href="{% url 'detalles' producto.id %}">Detalles</a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No hay productos para mostrar.</p>
+        {% endif %}
+        <nav class="menu-categorias">
+    <ul class="lista-categorias">
+        {% for categoria in categorias %}
+            <h1>Categorias</h1>
+            <li>
+                <a href="{% url 'productos_por_categoria' categoria.id %}">
+                    {% if categoria.Imagen %}
+                        <div class="categoria-imagen">
+                            <img src="{{ categoria.Imagen.url }}" alt="{{ categoria.Nombre }}">
+                        </div>
+                    {% endif %}
+                    <span class="categoria-nombre">{{ categoria.Nombre }}</span>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</nav>
+
+
+
+        <!-- REDES SOCIALES -->
+        <div class="redes">
+            <p>Redes Sociales:</p>
+            <a href="https://www.instagram.com/unik.py/">Instagram</a>
+            <a href="https://www.tiktok.com/@unik.py?_r=1&_t=ZM-92pr1lti9o8">Tiktok</a>
+        </div>
+    </div>
+
+</body>
+</html>

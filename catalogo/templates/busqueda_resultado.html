@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <a href="{% url 'home' %}" class="btn-volver">Volver al inicio</a>
+    <div class="productos-container">
+        {% if productos %}
+            <div class="productos-grid">
+                {% for producto in productos %}
+                    <div class="producto-card">
+                        <h3 class="producto-nombre">{{ producto.Nombre }}</h3>
+                        <div class="producto-imagen">
+                            <img src="{{ producto.Imagen.url }}" alt="{{ producto.Nombre }}">
+                        </div>
+                        <p class="producto-precio">₲ {{ producto.Precio }}</p>
+                        <a class="btn-detalles" href="{% url 'detalles' producto.id %}">Detalles</a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No hay productos para mostrar.</p>
+        {% endif %}
+
+        <div class="paginacion">
+            {%if page%}
+                {% if page_obj.has_previous %}
+                    <a href="?page=1" class="pagina-btn">Primera</a>
+                    <a href="?page={{ page_obj.previous_page_number }}" class="pagina-btn">Anterior</a>
+                {% endif %}
+
+                <span class="pagina-actual">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="pagina-btn">Siguiente</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}" class="pagina-btn">Última</a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+</body>
+</html>
