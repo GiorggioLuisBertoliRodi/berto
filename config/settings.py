@@ -13,7 +13,15 @@ load_dotenv(BASE_DIR / ".env")  # Carga variables desde .env
 SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = ["yourapp.onrender.com", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    ".onrender.com",
+]
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.onrender.com",
+]
+
 
 
 # ──────────────── INSTALACIÓN DE APPS ────────────────
@@ -88,3 +96,4 @@ cloudinary.config(
 
 # ──────────────── DEFAULT AUTO FIELD ────────────────
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
