@@ -26,13 +26,17 @@ CSRF_TRUSTED_ORIGINS = [
 
 # ──────────────── INSTALACIÓN DE APPS ────────────────
 INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-    "catalogo",
+    # apps por defecto
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    # tus apps
+    'catalogo',
+    # ...
 ]
 
 # ──────────────── MIDDLEWARE ────────────────
@@ -97,3 +101,14 @@ cloudinary.config(
 # ──────────────── DEFAULT AUTO FIELD ────────────────
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+import os
+import django
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
+django.setup()
+
+from django.core.management import call_command
+
+call_command("loaddata", "superuser.json")
+print("Superusuario cargado correctamente.")
