@@ -3,12 +3,10 @@ import os
 from dotenv import load_dotenv
 import dj_database_url
 import cloudinary
-import cloudinary.uploader
-import cloudinary.api
 
 # ───────────────── BASE ─────────────────
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv(BASE_DIR / ".env")
+load_dotenv(BASE_DIR / ".env")  # Carga variables desde .env
 
 # ───────────────── SECURITY ─────────────────
 SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
@@ -38,12 +36,14 @@ INSTALLED_APPS = [
 
     # Apps propias
     "catalogo",
+    "cloudinary",
+    "django_cloudinary_storage",
 ]
 
 # ───────────────── MIDDLEWARE ─────────────────
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # Static en producción
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -81,6 +81,7 @@ DATABASES = {
     )
 }
 
+# SSL solo si usas Postgres en Render
 if DATABASES["default"]["ENGINE"] == "django.db.backends.postgresql":
     DATABASES["default"]["OPTIONS"] = {"sslmode": "require"}
 
@@ -104,16 +105,16 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # ───────────────── MEDIA / CLOUDINARY ─────────────────
-MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 cloudinary.config(
     cloud_name=os.environ.get("CLOUDINARY_CLOUD_NAME"),
     api_key=os.environ.get("CLOUDINARY_API_KEY"),
     api_secret=os.environ.get("CLOUDINARY_API_SECRET"),
 )
-DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # ───────────────── DEFAULT PK ─────────────────
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
