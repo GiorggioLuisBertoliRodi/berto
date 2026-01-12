@@ -1,34 +1,12 @@
 # Python
-*.pyc
+.venv/
 __pycache__/
+*.pyc
 
-# Entornos virtuales
-venv/
-env/
+# Django
+db.sqlite3
+media/
+staticfiles/
 
-# Bases de datos locales
-*.sqlite3
-
-# Configuración de IDEs
-.vscode/
-*.sublime-workspace
-*.sublime-project
-
-# Archivos de sistema
+# OS
 .DS_Store
-Thumbs.db
-*.lnk
-*.log
-
-# Archivos temporales de OneDrive / Windows
-AppData/
-Contacts/
-Downloads/
-Favorites/
-Links/
-Music/
-Saved Games/
-Searches/
-Videos/
-ntuser.dat*
-OneDrive/
