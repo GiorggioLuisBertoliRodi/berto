@@ -33,12 +33,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
-    # Tu app
-    "catalogo",
-
-    # Cloudinary
+    # Cloudinary SIEMPRE primero
     "cloudinary",
     "cloudinary_storage",
+
+    # Tu app
+    "catalogo",
 ]
 
 # ───────────────── MIDDLEWARE ─────────────────
