@@ -1,4 +1,4 @@
-SECRET_KEY=tu_secret_key
+SECRET_KEY=a741fe62dc8b66b2d5ddaac53c7c4629
 DEBUG=True
 ALLOWED_HOSTS=localhost,127.0.0.1,.onrender.com
 

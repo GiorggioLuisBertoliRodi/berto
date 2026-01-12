@@ -474,3 +474,24 @@ p {
     color: #333;
     font-weight: 500;
 }
+/* Estilo para el título de categorías */
+.titulo-categorias {
+    font-family: 'Poppins', sans-serif; /* Tipografía moderna */
+    font-size: 2.5rem;                  /* Tamaño grande */
+    font-weight: 700;                   /* Negrita */
+    text-align: center;                 /* Centrado */
+    color: #4A90E2;                     /* Azul agradable */
+    margin: 30px 0;                     /* Espacio arriba y abajo */
+    position: relative;
+}
+
+/* Línea decorativa debajo */
+.titulo-categorias::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: #F5A623; /* Color de contraste */
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
