@@ -11,7 +11,7 @@
 
     <!-- LOGO -->
     <div class="avatar">
-        <img src="/media/productos/Unik_logo.jpg" alt="logo">
+        <img src="/media/productos/logo_unik.jpg" alt="logo">
     </div>
 
     <div class="container">
@@ -44,8 +44,8 @@
         {% endif %}
         <nav class="menu-categorias">
     <ul class="lista-categorias">
+        <h1 class="titulo-categorias">Categorias</h1>
         {% for categoria in categorias %}
-            <h1>Categorias</h1>
             <li>
                 <a href="{% url 'productos_por_categoria' categoria.id %}">
                     {% if categoria.Imagen %}
