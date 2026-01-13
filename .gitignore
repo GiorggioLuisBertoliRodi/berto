@@ -1,12 +1,6 @@
-# Python
-.venv/
+venv/
 __pycache__/
 *.pyc
-
-# Django
 db.sqlite3
 media/
 staticfiles/
-
-# OS
-.DS_Store
