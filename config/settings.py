@@ -30,11 +30,12 @@ INSTALLED_APPS = [
 
     # Cloudinary
     "cloudinary",
-    "cloudinary_storage",  # <- Módulo correcto para MediaCloudinaryStorage
+    "django_cloudinary_storage",  # <--- CORRECCIÓN
 
-    # Tu app
+    # Tus apps
     "catalogo",
 ]
+
 
 # ───────────────── MIDDLEWARE ─────────────────
 MIDDLEWARE = [
@@ -101,7 +102,8 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # ───────────────── MEDIA / CLOUDINARY ─────────────────
-DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+DEFAULT_FILE_STORAGE = "django_cloudinary_storage.storage.MediaCloudinaryStorage"
+
 
 CLOUDINARY_STORAGE = {
     "CLOUD_NAME": os.environ.get("CLOUDINARY_CLOUD_NAME"),
