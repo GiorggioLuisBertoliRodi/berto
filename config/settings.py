@@ -13,12 +13,14 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
 DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 # ALLOWED_HOSTS desde .env, separados por coma
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1,berto-99uc.onrender.com").split(",")
+
 
 # CSRF confiable para Render
 CSRF_TRUSTED_ORIGINS = [
-    f"https://{host}" for host in ALLOWED_HOSTS if host not in ("localhost", "127.0.0.1")
+    "https://berto-99uc.onrender.com",
 ]
+
 
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
