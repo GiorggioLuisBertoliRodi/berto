@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('catalogo', '0003_rename_imagen_categoria_imagen_and_more'),
+        ('catalogo', '0002_categoria_imagen'),
     ]
 
     operations = [
