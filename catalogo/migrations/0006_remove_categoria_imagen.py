@@ -9,9 +9,9 @@ class Migration(migrations.Migration):
         ('catalogo', '0005_alter_categoria_imagen_alter_producto_imagen'),
     ]
 
-    operations = [
-        migrations.RemoveField(
-            model_name='categoria',
-            name='imagen',
-        ),
-    ]
+    #operations = [
+    #    migrations.RemoveField(
+    #        model_name='categoria',
+    #        name='imagen',
+    #    ),
+    #]
