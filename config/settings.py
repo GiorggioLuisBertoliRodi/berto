@@ -11,7 +11,7 @@ load_dotenv(BASE_DIR / ".env")  # carga variables desde .env
 # ───────────────── SECURITY ─────────────────
 SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
 DEBUG = os.environ.get("DEBUG", "False") == "True"
-
+RENDER = os.environ.get("RENDER", False)
 # ALLOWED_HOSTS desde .env, separados por coma
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1,berto-99uc.onrender.com").split(",")
 
@@ -41,7 +41,8 @@ INSTALLED_APPS = [
 
     "cloudinary",
     "cloudinary_storage",
-    "catalogo",
+    'catalogo.apps.CatalogoConfig',
+
 ]
 
 # ───────────────── MIDDLEWARE ─────────────────
@@ -120,14 +121,3 @@ cloudinary.config(
 # ───────────────── DEFAULT PK ─────────────────
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-import os
-from django.contrib.auth import get_user_model
-User = get_user_model()
-
-if os.environ.get("RENDER"):
-    if not User.objects.filter(username="admin").exists():
-        User.objects.create_superuser(
-            username="admin",
-            email="",
-            password="admin1234"
-        )
