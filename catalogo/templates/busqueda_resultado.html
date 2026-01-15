@@ -14,11 +14,11 @@
             <div class="productos-grid">
                 {% for producto in productos %}
                     <div class="producto-card">
-                        <h3 class="producto-nombre">{{ producto.Nombre }}</h3>
+                        <h3 class="producto-nombre">{{ producto.nombre }}</h3>
                         <div class="producto-imagen">
-                            <img src="{{ producto.Imagen.url }}" alt="{{ producto.Nombre }}">
+                            <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
                         </div>
-                        <p class="producto-precio">₲ {{ producto.Precio }}</p>
+                        <p class="producto-precio">₲ {{ producto.precio }}</p>
                         <a class="btn-detalles" href="{% url 'detalles' producto.id %}">Detalles</a>
                     </div>
                 {% endfor %}

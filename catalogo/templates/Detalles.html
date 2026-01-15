@@ -17,19 +17,19 @@
         <!-- DETALLE DEL PRODUCTO -->
         <div class="detalle-container">
             <div class="detalle-card">
-                <h2 class="detalle-nombre">{{ producto_detalles.Nombre }}</h2>
+                <h2 class="detalle-nombre">{{ producto_detalles.nombre }}</h2>
                 <div class="detalle-imagen">
-                    <img src="{{ producto_detalles.Imagen.url }}" alt="{{ producto_detalles.Nombre }}">
+                    <img src="{{ producto_detalles.imagen.url }}" alt="{{ producto_detalles.nombre }}">
                 </div>
 
                 <div class="detalle-info">
                     {% if producto_detalles.Descripcion %}
-                        <p class="detalle-descripcion"><strong>Descripción:</strong> {{ producto_detalles.Descripcion }}</p>
+                        <p class="detalle-descripcion"><strong>Descripción:</strong> {{ producto_detalles.descripcion }}</p>
                     {% else %}
                         <p class="detalle-descripcion"><strong>Descripción:</strong> No hay descripción</p>
                     {% endif %}
                     <p class="detalle-categoria"><strong>Categoría:</strong> {{ producto_detalles.categoria }}</p>
-                    <p class="detalle-precio"><strong>Precio:</strong> ₲{{ producto_detalles.Precio }}</p>
+                    <p class="detalle-precio"><strong>Precio:</strong> ₲{{ producto_detalles.precio }}</p>
 
                 </div>
             </div>
