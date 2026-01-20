@@ -10,10 +10,10 @@ load_dotenv(BASE_DIR / ".env")  # carga variables desde .env
 
 # ───────────────── SECURITY ─────────────────
 SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
-DEBUG = os.environ.get("DEBUG", "False") == "True"
+DEBUG = os.environ.get("DEBUG") == "True"
 RENDER = os.environ.get("RENDER", False)
 # ALLOWED_HOSTS desde .env, separados por coma
-ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 
@@ -57,6 +57,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
 
 # ───────────────── URLS / WSGI ─────────────────
 ROOT_URLCONF = "config.urls"
@@ -81,10 +82,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 # ───────────────── DATABASE ─────────────────
 DATABASES = {
-    "default": dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=600
-    )
+    "default": dj_database_url.config(conn_max_age=600, ssl_require=True)
 }
 
 # SSL solo si usas Postgres en Render
