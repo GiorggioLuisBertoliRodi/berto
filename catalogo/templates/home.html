@@ -48,12 +48,12 @@
         {% for categoria in categorias %}
             <li>
                 <a href="{% url 'productos_por_categoria' categoria.id %}">
-                    {% if categoria.Imagen %}
+                    {% if categoria.imagen %}
                         <div class="categoria-imagen">
-                            <img src="{{ categoria.Imagen.url }}" alt="{{ categoria.Nombre }}">
+                            <img src="{{ categoria.imagen.url }}" alt="{{ categoria.nombre }}">
                         </div>
                     {% endif %}
-                    <span class="categoria-nombre">{{ categoria.Nombre }}</span>
+                    <span class="categoria-nombre">{{ categoria.nombre }}</span>
                 </a>
             </li>
         {% endfor %}
