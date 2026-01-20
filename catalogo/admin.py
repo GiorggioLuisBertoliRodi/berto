@@ -8,6 +8,3 @@ class CategoriaAdmin(admin.ModelAdmin):
 @admin.register(Producto)
 class ProductoAdmin(admin.ModelAdmin):
     list_display = ("nombre", "categoria", "precio", "imagen")
-
-admin.site.register(Categoria,CategoriaAdmin)
-admin.site.register(Producto, ProductoAdmin)
