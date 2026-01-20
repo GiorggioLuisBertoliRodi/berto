@@ -1,10 +1,15 @@
 from pathlib import Path
 import os
+import dj_database_url
+import cloudinary
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv(BASE_DIR / ".env")
+
+# ───────────────── BASE ─────────────────
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # ───────────────── SECURITY ─────────────────
 SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
