@@ -1,15 +1,14 @@
 from pathlib import Path
 import os
 import dj_database_url
-import cloudinary
 from dotenv import load_dotenv
-
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-load_dotenv(BASE_DIR / ".env")
+import cloudinary
 
 # ───────────────── BASE ─────────────────
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Cargar variables de entorno desde .env
+load_dotenv(BASE_DIR / ".env")
 
 # ───────────────── SECURITY ─────────────────
 SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
@@ -28,7 +27,7 @@ INSTALLED_APPS = [
     "cloudinary",
     "cloudinary_storage",
 
-    "catalogo.apps.CatalogoConfig",
+    "catalogo.apps.CatalogoConfig",  # tu app
 ]
 
 # ───────────────── MIDDLEWARE ─────────────────
