@@ -1,35 +1,15 @@
 from pathlib import Path
 import os
-from dotenv import load_dotenv
 import dj_database_url
 import cloudinary
 
 # ───────────────── BASE ─────────────────
 BASE_DIR = Path(__file__).resolve().parent.parent
-load_dotenv(BASE_DIR / ".env")  # carga variables desde .env
 
 # ───────────────── SECURITY ─────────────────
 SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
 DEBUG = os.environ.get("DEBUG") == "True"
-RENDER = os.environ.get("RENDER", False)
-# ALLOWED_HOSTS desde .env, separados por coma
-ALLOWED_HOSTS = ['*']
-
-
-
-# CSRF confiable para Render
-CSRF_TRUSTED_ORIGINS = [
-    "https://berto-99uc.onrender.com",
-]
-
-
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-
-# Forzar HTTPS en producción
-if not DEBUG:
-    SECURE_SSL_REDIRECT = True
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
+ALLOWED_HOSTS = ["*"]
 
 # ───────────────── APPS ─────────────────
 INSTALLED_APPS = [
@@ -42,14 +22,14 @@ INSTALLED_APPS = [
 
     "cloudinary",
     "cloudinary_storage",
-    'catalogo.apps.CatalogoConfig',
 
+    "catalogo.apps.CatalogoConfig",
 ]
 
 # ───────────────── MIDDLEWARE ─────────────────
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",  # static en producción
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -57,7 +37,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
 
 # ───────────────── URLS / WSGI ─────────────────
 ROOT_URLCONF = "config.urls"
@@ -82,12 +61,10 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 # ───────────────── DATABASE ─────────────────
 DATABASES = {
-    "default": dj_database_url.config(conn_max_age=600, ssl_require=True)
+    "default": dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
+    )
 }
-
-# SSL solo si usas Postgres en Render
-if DATABASES["default"]["ENGINE"] == "django.db.backends.postgresql":
-    DATABASES["default"]["OPTIONS"] = {"sslmode": "require"}
 
 # ───────────────── AUTH ─────────────────
 AUTH_PASSWORD_VALIDATORS = [
@@ -119,4 +96,3 @@ cloudinary.config(
 
 # ───────────────── DEFAULT PK ─────────────────
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
