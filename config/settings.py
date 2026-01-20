@@ -1,21 +1,15 @@
 from pathlib import Path
 import os
-import dj_database_url
 from dotenv import load_dotenv
 import cloudinary
 
-# ───────────────── BASE ─────────────────
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-# Cargar variables de entorno desde .env
 load_dotenv(BASE_DIR / ".env")
 
-# ───────────────── SECURITY ─────────────────
 SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
-DEBUG = os.environ.get("DEBUG", "False") == "True"
+DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
-# ───────────────── APPS ─────────────────
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -27,10 +21,9 @@ INSTALLED_APPS = [
     "cloudinary",
     "cloudinary_storage",
 
-    "catalogo.apps.CatalogoConfig",  # tu app
+    "catalogo.apps.CatalogoConfig",
 ]
 
-# ───────────────── MIDDLEWARE ─────────────────
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -42,7 +35,6 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-# ───────────────── URLS / WSGI ─────────────────
 ROOT_URLCONF = "config.urls"
 
 TEMPLATES = [
@@ -63,14 +55,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-# ───────────────── DATABASE ─────────────────
 DATABASES = {
-    "default": dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
-    )
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
 }
 
-# ───────────────── AUTH ─────────────────
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
@@ -78,25 +69,21 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-# ───────────────── I18N ─────────────────
 LANGUAGE_CODE = "es"
 TIME_ZONE = "America/Asuncion"
 USE_I18N = True
 USE_TZ = True
 
-# ───────────────── STATIC ─────────────────
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-# ───────────────── MEDIA / CLOUDINARY ─────────────────
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
+# Configuración de Cloudinary
 cloudinary.config(
     cloud_name=os.environ.get("CLOUDINARY_CLOUD_NAME"),
     api_key=os.environ.get("CLOUDINARY_API_KEY"),
     api_secret=os.environ.get("CLOUDINARY_API_SECRET"),
 )
 
-# ───────────────── DEFAULT PK ─────────────────
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
