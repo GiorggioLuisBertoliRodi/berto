@@ -11,7 +11,7 @@ def home(request):
 def busqueda_resultado(request):
     busqueda = request.GET.get('busqueda', '')  
     if busqueda:
-        Coincidencias = Producto.objects.filter(Nombre__icontains=busqueda)
+        Coincidencias = Producto.objects.filter(nombre__icontains=busqueda)
         Coincidencias = Paginator(Coincidencias,5)
         page_number = request.GET.get('page')
         page_obj = Coincidencias.get_page(page_number)
