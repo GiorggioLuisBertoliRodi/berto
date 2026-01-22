@@ -19,7 +19,7 @@
         {% for categoria in categorias %}
             <li>
                 <a href="{% url 'productos_por_categoria' categoria.id %}">
-                    {% if categoria.Imagen %}
+                    {% if categoria.imagen %}
                         <div class="categoria-imagen">
                             <img src="{{ categoria.imagen.url }}" alt="{{ categoria.nombre }}">
                         </div>
