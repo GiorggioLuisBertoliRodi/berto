@@ -13,9 +13,9 @@
     <div class="avatar">
         <img src="{% static 'productos/logo_unik.jpg' %}" alt="Logo Unik">
     </div>
-
+    <!-- <a href="{%url 'login' %}">Iniciar Sesion</a> -->
+    <!-- <a href="{%url 'logout' %}">Cerrar Sesion</a> -->
     <div class="container">
-        <!-- HEADER Y BUSCADOR -->
         <header class="header">
             <form method="GET" action="{% url 'busqueda_resultado' %}" class="buscador">
                 <input type="text" name="busqueda" placeholder="Buscar productos...">
