@@ -13,8 +13,17 @@
     <div class="avatar">
         <img src="{% static 'productos/logo_unik.jpg' %}" alt="Logo Unik">
     </div>
-    <!-- <a href="{%url 'login' %}">Iniciar Sesion</a> -->
-    <!-- <a href="{%url 'logout' %}">Cerrar Sesion</a> -->
+    <div class="auth-links">
+    {% if user.is_authenticated %}
+        <span class="user-greeting">Hola, {{ user.username }}!</span>
+        <a href="{% url 'logout' %}" class="btn btn-secondary">Cerrar Sesión</a>
+    {% else %}
+        <a href="{% url 'login' %}" class="btn btn-primary">Iniciar Sesión</a>
+        <a href="{% url 'register' %}" class="btn btn-success">Registrarse</a>
+    {% endif %}
+    </div>
+
+
     <div class="container">
         <header class="header">
             <form method="GET" action="{% url 'busqueda_resultado' %}" class="buscador">

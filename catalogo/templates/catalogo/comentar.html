@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Comentarios</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <style>
+        .comentarios-box {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 25px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            font-family: Arial, sans-serif;
+        }
+
+        .comentarios-box h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        .comentarios-box textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            resize: none;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .comentarios-box textarea:focus {
+            border-color: #4f46e5;
+        }
+
+        .comentarios-box button {
+            margin-top: 15px;
+            width: 100%;
+            padding: 12px;
+            background: #4f46e5;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .comentarios-box button:hover {
+            background: #4338ca;
+        }
+
+        .lista-comentarios {
+            margin-top: 35px;
+        }
+
+        .comentario {
+            padding: 15px;
+            margin-bottom: 12px;
+            background: #f9fafb;
+            border-radius: 8px;
+        }
+
+        .comentario strong {
+            color: #111827;
+        }
+
+        .comentario small {
+            display: block;
+            margin-top: 5px;
+            color: #6b7280;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="comentarios-box">
+    <h2>Deja tu comentario</h2>
+
+    {% if user.is_authenticated %}
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.mensaje }}
+            <button type="submit">Comentar</button>
+        </form>
+    {% else %}
+        <p style="text-align:center;">
+            Debes <a href="{% url 'login' %}">iniciar sesión</a> para comentar.
+        </p>
+    {% endif %}
+
+    <div class="lista-comentarios">
+        {% for comentario in producto.comentarios.all %}
+            <div class="comentario">
+                <strong>{{ comentario.autor.username }}</strong>
+                <p>{{ comentario.mensaje }}</p>
+                <small>{{ comentario.fecha|date:"d M Y H:i" }}</small>
+            </div>
+        {% empty %}
+            <p style="text-align:center;">Aún no hay comentarios.</p>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>

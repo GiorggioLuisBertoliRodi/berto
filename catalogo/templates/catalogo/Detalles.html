@@ -35,7 +35,19 @@
             </div>
         </div>
     </div>
-    <a href="{% url 'home' %}" class="btn-volver">Volver al inicio</a>
+    
+<div class="acciones-producto">
+    <a href="{% url 'home' %}" class="btn btn-volver">← Volver al inicio</a>
+
+    <a href="{% url 'ver_comentarios' producto_detalles.id %}" class="btn btn-comentarios">
+        Ver comentarios
+    </a>
+
+    <a href="{% url 'comentar' producto_detalles.id %}" class="btn btn-comentar">
+        Comentar
+    </a>
+</div>
+
 
 </body>
 </html>
