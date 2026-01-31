@@ -20,7 +20,7 @@ def busqueda_resultado(request):
         Coincidencias = Paginator(Coincidencias,5)
         page_number = request.GET.get('page')
         page_obj = Coincidencias.get_page(page_number)
-        return render(request, 'catalogo/busqueda_resultado.html', {'productos': page_obj})
+        return render(request, 'catalogo/busqueda_resultado.html', {'page_obj': page_obj})
 def detalles(request,id):
     producto_detalles = get_object_or_404(Producto,id=id)
     return render(request,'catalogo/detalles.html',{'producto_detalles':producto_detalles})
