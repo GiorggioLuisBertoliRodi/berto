@@ -13,12 +13,13 @@ import cloudinary.api
 # ===============================
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Carga .env solo en local (en Render no existe)
 load_dotenv(BASE_DIR / ".env")
 
 # ===============================
 # SECURITY
 # ===============================
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY", "insecure-dev-key")
 
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
@@ -27,13 +28,16 @@ ALLOWED_HOSTS = os.environ.get(
     "localhost,127.0.0.1"
 ).split(",")
 
-CSRF_TRUSTED_ORIGINS = [
-    os.environ.get("CSRF_ORIGIN")
-]
+CSRF_TRUSTED_ORIGINS = os.environ.get(
+    "CSRF_TRUSTED_ORIGINS",
+    ""
+).split(",")
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+
 SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 # ===============================
 # APPS
@@ -97,11 +101,13 @@ TEMPLATES = [
 # DATABASE (PostgreSQL - Render)
 # ===============================
 DATABASES = {
-    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+    "default": dj_database_url.config(
+        default=os.environ.get("DATABASE_URL")
+    )
 }
 
 # ===============================
-# PASSWORDS
+# PASSWORD VALIDATORS
 # ===============================
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
@@ -132,9 +138,9 @@ STATICFILES_STORAGE = (
 # MEDIA (Cloudinary)
 # ===============================
 cloudinary.config(
-    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
-    api_key=os.getenv("CLOUDINARY_API_KEY"),
-    api_secret=os.getenv("CLOUDINARY_API_SECRET"),
+    cloud_name=os.environ.get("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.environ.get("CLOUDINARY_API_KEY"),
+    api_secret=os.environ.get("CLOUDINARY_API_SECRET"),
     secure=True,
 )
 
