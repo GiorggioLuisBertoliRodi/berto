@@ -11,7 +11,7 @@ class Categoria(models.Model):
 
 
 class Producto(models.Model):
-    nombre = models.CharField(max_length=200)
+    nombre = models.CharField(max_length=100, db_column='Nombre')
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     descripcion = models.TextField(blank=True, null=True)
     imagen = CloudinaryField("imagen", blank=True, null=True)
