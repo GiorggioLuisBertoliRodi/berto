@@ -3,7 +3,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("catalogo", "0002_comentario_producto"),
+        ("catalogo", "0002_initial.py"),
     ]
 
     operations = [
