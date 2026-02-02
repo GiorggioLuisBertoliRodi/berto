@@ -1,9 +1,7 @@
 from pathlib import Path
 import os
-
 from dotenv import load_dotenv
 import dj_database_url
-
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
@@ -13,7 +11,7 @@ import cloudinary.api
 # ===============================
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Carga .env solo en local (en Render no existe)
+# Carga .env solo en local
 load_dotenv(BASE_DIR / ".env")
 
 # ===============================
@@ -28,14 +26,11 @@ ALLOWED_HOSTS = os.environ.get(
     "localhost,127.0.0.1"
 ).split(",")
 
-CSRF_TRUSTED_ORIGINS = os.environ.get(
-    "CSRF_TRUSTED_ORIGINS",
-    ""
-).split(",")
+# Agrega tu dominio de Render aquí
+CSRF_TRUSTED_ORIGINS = ["https://berto-99uc.onrender.com"]
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
-
 SECURE_SSL_REDIRECT = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
@@ -102,13 +97,16 @@ TEMPLATES = [
 # ===============================
 DATABASES = {
     "default": dj_database_url.config(
-        default=os.environ.get("DATABASE_URL")
+        default=os.environ.get("DATABASE_URL"),
+        conn_max_age=600,
+        ssl_require=True  # Render Free requiere SSL
     )
 }
+
+# No crear migraciones para catalogo (ya está en la DB)
 MIGRATION_MODULES = {
     "catalogo": None,
 }
-
 
 # ===============================
 # PASSWORD VALIDATORS
@@ -134,9 +132,7 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-STATICFILES_STORAGE = (
-    "whitenoise.storage.CompressedManifestStaticFilesStorage"
-)
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # ===============================
 # MEDIA (Cloudinary)
@@ -148,9 +144,7 @@ cloudinary.config(
     secure=True,
 )
 
-DEFAULT_FILE_STORAGE = (
-    "cloudinary_storage.storage.MediaCloudinaryStorage"
-)
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 # ===============================
 # AUTH
