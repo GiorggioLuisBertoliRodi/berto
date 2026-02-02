@@ -2,75 +2,67 @@ from django.db import models
 from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User
 
-# ==========================
-# Categorías de productos
-# ==========================
+
 class Categoria(models.Model):
     nombre = models.CharField(
-        max_length=100,
-        db_column="Nombre"  # coincide con la columna existente en DB
+        max_length=100
     )
     imagen = CloudinaryField(
         "imagen",
         blank=True,
-        null=True,
-        db_column="Imagen"  # coincide con la columna existente en DB
+        null=True
     )
 
     def __str__(self):
         return self.nombre
 
 
-# ==========================
-# Productos
-# ==========================
 class Producto(models.Model):
     nombre = models.CharField(
-        max_length=100,
-        db_column="Nombre"  # coincide con la DB
+        max_length=100
     )
+
     categoria = models.ForeignKey(
         Categoria,
         on_delete=models.CASCADE
-        # no db_column aquí: Django usa categoria_id por defecto
     )
+
     descripcion = models.TextField(
         blank=True,
-        null=True,
-        db_column="Descripcion"  # coincide con la DB
+        null=True
     )
+
     imagen = CloudinaryField(
         "imagen",
         blank=True,
-        null=True,
-        db_column="Imagen"
+        null=True
     )
+
     precio = models.DecimalField(
         max_digits=10,
-        decimal_places=0,
-        db_column="Precio"
+        decimal_places=0
     )
 
     def __str__(self):
         return self.nombre
 
 
-# ==========================
-# Comentarios de productos
-# ==========================
 class Comentario_Producto(models.Model):
     producto = models.ForeignKey(
         Producto,
         related_name="comentarios",
         on_delete=models.CASCADE
     )
+
     autor = models.ForeignKey(
         User,
         on_delete=models.CASCADE
     )
+
     mensaje = models.TextField(
         max_length=500
     )
+
     creado = models.DateTimeField(
         auto_now_add=True
     )

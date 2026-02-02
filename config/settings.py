@@ -103,10 +103,6 @@ DATABASES = {
     )
 }
 
-# No crear migraciones para catalogo (ya está en la DB)
-MIGRATION_MODULES = {
-    "catalogo": None,
-}
 
 # ===============================
 # PASSWORD VALIDATORS
