@@ -105,6 +105,10 @@ DATABASES = {
         default=os.environ.get("DATABASE_URL")
     )
 }
+MIGRATION_MODULES = {
+    "catalogo": None,
+}
+
 
 # ===============================
 # PASSWORD VALIDATORS
