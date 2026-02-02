@@ -5,14 +5,14 @@ from django.contrib.auth.models import User
 
 class Categoria(models.Model):
     nombre = models.CharField(
-        max_length=100,
-        db_column="Nombre"
+        max_length=100
+        # ❌ Quitar db_column="Nombre"
     )
     imagen = CloudinaryField(
         "imagen",
         blank=True,
-        null=True,
-        db_column="Imagen"
+        null=True
+        # opcional: solo usar db_column si la columna real en DB no coincide
     )
 
     def __str__(self):
