@@ -3,18 +3,18 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("catalogo", "0002_initial"),
+        ("catalogo", "0001_initial"),
     ]
 
     operations = [
         migrations.RunSQL(
-            sql='''
-            ALTER TABLE catalogo_producto RENAME COLUMN "Nombre" TO nombre;
-            ALTER TABLE catalogo_categoria RENAME COLUMN "Nombre" TO nombre;
-            ''',
-            reverse_sql='''
-            ALTER TABLE catalogo_producto RENAME COLUMN nombre TO "Nombre";
-            ALTER TABLE catalogo_categoria RENAME COLUMN nombre TO "Nombre";
-            '''
-        )
+            sql="""
+                ALTER TABLE catalogo_producto
+                RENAME COLUMN categoria_id_id TO categoria_id;
+            """,
+            reverse_sql="""
+                ALTER TABLE catalogo_producto
+                RENAME COLUMN categoria_id TO categoria_id_id;
+            """
+        ),
     ]
