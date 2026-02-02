@@ -24,14 +24,18 @@
     </div>
 
 
-    <div class="container">
-        <header class="header">
-            <form method="GET" action="{% url 'busqueda_resultado' %}" class="buscador">
-                <input type="text" name="busqueda" placeholder="Buscar productos...">
-                <button type="submit">Buscar</button>
-            </form>
-            <h1>Productos Destacados</h1>
-        </header>
+    <header class="header">
+        <form method="GET" action="{% url 'busqueda_resultado' %}" class="buscador">
+            <input type="text"
+               name="busqueda"
+               placeholder="Buscar productos..."
+               value="{{ busqueda }}">
+            <button type="submit">Buscar</button>
+        </form>
+
+        <h1>Productos Destacados</h1>
+    </header>
+
 
 
         <!-- GRID DE PRODUCTOS -->
