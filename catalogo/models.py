@@ -25,10 +25,10 @@ class Producto(models.Model):
         db_column="Nombre"
     )
 
+    # ForeignKey usa por defecto categoria_id (CONFIRMADO por el error)
     categoria = models.ForeignKey(
         Categoria,
-        on_delete=models.CASCADE,
-        db_column="Categoria_id"
+        on_delete=models.CASCADE
     )
 
     descripcion = models.TextField(
@@ -58,24 +58,20 @@ class Comentario_Producto(models.Model):
     producto = models.ForeignKey(
         Producto,
         related_name="comentarios",
-        on_delete=models.CASCADE,
-        db_column="Producto_id"
+        on_delete=models.CASCADE
     )
 
     autor = models.ForeignKey(
         User,
-        on_delete=models.CASCADE,
-        db_column="Autor_id"
+        on_delete=models.CASCADE
     )
 
     mensaje = models.TextField(
-        max_length=500,
-        db_column="Mensaje"
+        max_length=500
     )
 
     creado = models.DateTimeField(
-        auto_now_add=True,
-        db_column="Creado"
+        auto_now_add=True
     )
 
     def __str__(self):
