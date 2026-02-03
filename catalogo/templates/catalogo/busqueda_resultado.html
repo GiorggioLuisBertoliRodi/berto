@@ -8,18 +8,41 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
+
+    <!-- Volver -->
     <a href="{% url 'home' %}" class="btn-volver">Volver al inicio</a>
+
+    <!-- Buscador -->
+    <form method="get" class="buscador">
+        <input
+            type="text"
+            name="q"
+            placeholder="Buscar producto"
+            value="{{ query }}"
+        >
+        <button type="submit">Buscar</button>
+    </form>
+
     <div class="productos-container">
         {% if productos %}
             <div class="productos-grid">
                 {% for producto in productos %}
                     <div class="producto-card">
                         <h3 class="producto-nombre">{{ producto.nombre }}</h3>
+
                         <div class="producto-imagen">
-                            <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+                            {% if producto.imagen %}
+                                <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+                            {% else %}
+                                <img src="{% static 'img/no-image.png' %}" alt="Sin imagen">
+                            {% endif %}
                         </div>
+
                         <p class="producto-precio">₲ {{ producto.precio }}</p>
-                        <a class="btn-detalles" href="{% url 'detalles' producto.id %}">Detalles</a>
+
+                        <a class="btn-detalles" href="{% url 'detalles' producto.id %}">
+                            Detalles
+                        </a>
                     </div>
                 {% endfor %}
             </div>
@@ -27,20 +50,24 @@
             <p>No hay productos para mostrar.</p>
         {% endif %}
 
+        <!-- Paginación -->
         <div class="paginacion">
             {% if page_obj.has_previous %}
-                <a href="?page=1" class="pagina-btn">Primera</a>
-                <a href="?page={{ page_obj.previous_page_number }}" class="pagina-btn">Anterior</a>
+                <a href="?q={{ query }}&page=1" class="pagina-btn">Primera</a>
+                <a href="?q={{ query }}&page={{ page_obj.previous_page_number }}" class="pagina-btn">Anterior</a>
             {% endif %}
 
-            <span class="pagina-actual">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+            <span class="pagina-actual">
+                Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+            </span>
 
             {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}" class="pagina-btn">Siguiente</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}" class="pagina-btn">Última</a>
+                <a href="?q={{ query }}&page={{ page_obj.next_page_number }}" class="pagina-btn">Siguiente</a>
+                <a href="?q={{ query }}&page={{ page_obj.paginator.num_pages }}" class="pagina-btn">Última</a>
             {% endif %}
         </div>
     </div>
 
 </body>
 </html>
+

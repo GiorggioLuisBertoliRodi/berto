@@ -13,12 +13,37 @@ def home(request):
     Productos_home = random.sample(productos_list, min(len(productos_list), 5))
     categorias = Categoria.objects.all()
     return render(request, 'catalogo/home.html', {"Productos_home": Productos_home,"categorias": categorias})
+from django.shortcuts import render
+from django.core.paginator import Paginator
+from .models import Producto
+
+
 def busqueda_resultado(request):
-    productos = Producto.objects.all().order_by('id')  # Orden importante para evitar UnorderedObjectListWarning
-    paginator = Paginator(productos, 5)  # 5 productos por página
+    # Texto de búsqueda
+    query = request.GET.get('q', '').strip()
+
+    # Query base (ordenado para evitar warnings de paginación)
+    productos_qs = Producto.objects.all().order_by('id')
+
+    # Filtro por nombre (búsqueda)
+    if query:
+        productos_qs = productos_qs.filter(nombre__icontains=query)
+
+    # Paginación
+    paginator = Paginator(productos_qs, 5)  # 5 productos por página
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'catalogo/busqueda_resultado.html', {'productos': page_obj.object_list,'page_obj': page_obj})
+
+    return render(
+        request,
+        'catalogo/busqueda_resultado.html',
+        {
+            'productos': page_obj.object_list,
+            'page_obj': page_obj,
+            'query': query,
+        }
+    )
+
 def detalles(request, id):
     producto_detalles = get_object_or_404(Producto, id=id)
     return render(request, 'catalogo/Detalles.html', {'producto_detalles': producto_detalles})

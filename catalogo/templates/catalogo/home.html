@@ -24,14 +24,16 @@
     </div>
 
 
-    <header class="header">
-        <form method="GET" action="{% url 'busqueda_resultado' %}" class="buscador">
-            <input type="text"
-               name="busqueda"
-               placeholder="Buscar productos..."
-               value="{{ busqueda }}">
-            <button type="submit">Buscar</button>
-        </form>
+    <form method="GET" action="{% url 'busqueda_resultado' %}" class="buscador">
+    <input
+        type="text"
+        name="q"
+        placeholder="Buscar productos..."
+        value="{{ query }}"
+    >
+    <button type="submit">Buscar</button>
+</form>
+
 
         <h1>Productos Destacados</h1>
     </header>
