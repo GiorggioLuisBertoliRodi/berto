@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ producto_detalles.Nombre }}</title>
+    <title>{{ producto_detalles.nombre }}</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
@@ -14,40 +14,31 @@
         <img src="{% static 'productos/logo_unik.jpg' %}" alt="logo">
     </div>
 
-        <!-- DETALLE DEL PRODUCTO -->
-        <div class="detalle-container">
-            <div class="detalle-card">
-                <h2 class="detalle-nombre">{{ producto_detalles.nombre }}</h2>
-                <div class="detalle-imagen">
-                    <img src="{{ producto_detalles.imagen.url }}" alt="{{ producto_detalles.nombre }}">
-                </div>
+    <!-- DETALLE DEL PRODUCTO -->
+    <div class="detalle-container">
+        <div class="detalle-card">
+            <h2 class="detalle-nombre">{{ producto_detalles.nombre }}</h2>
+            <div class="detalle-imagen">
+                <img src="{{ producto_detalles.imagen.url }}" alt="{{ producto_detalles.nombre }}">
+            </div>
 
-                <div class="detalle-info">
-                    {% if producto_detalles.Descripcion %}
-                        <p class="detalle-descripcion"><strong>Descripción:</strong> {{ producto_detalles.descripcion }}</p>
-                    {% else %}
-                        <p class="detalle-descripcion"><strong>Descripción:</strong> No hay descripción</p>
-                    {% endif %}
-                    <p class="detalle-categoria"><strong>Categoría:</strong> {{ producto_detalles.categoria }}</p>
-                    <p class="detalle-precio"><strong>Precio:</strong> ₲{{ producto_detalles.precio }}</p>
-
-                </div>
+            <div class="detalle-info">
+                {% if producto_detalles.descripcion %}
+                    <p class="detalle-descripcion"><strong>Descripción:</strong> {{ producto_detalles.descripcion }}</p>
+                {% else %}
+                    <p class="detalle-descripcion"><strong>Descripción:</strong> No hay descripción</p>
+                {% endif %}
+                <p class="detalle-categoria"><strong>Categoría:</strong> {{ producto_detalles.categoria }}</p>
+                <p class="detalle-precio"><strong>Precio:</strong> ₲{{ producto_detalles.precio }}</p>
             </div>
         </div>
     </div>
-    
-<div class="acciones-producto">
-    <a href="{% url 'home' %}" class="btn btn-volver">← Volver al inicio</a>
 
-    <a href="{% url 'ver_comentarios' producto_detalles.id %}" class="btn btn-comentarios">
-        Ver comentarios
-    </a>
-
-    <a href="{% url 'comentar' producto_detalles.id %}" class="btn btn-comentar">
-        Comentar
-    </a>
-</div>
-
+    <div class="acciones-producto">
+        <a href="{% url 'home' %}" class="btn btn-volver">← Volver al inicio</a>
+        <a href="{% url 'ver_comentarios' producto_detalles.id %}" class="btn btn-comentarios">Ver comentarios</a>
+        <a href="{% url 'comentar' producto_detalles.id %}" class="btn btn-comentar">Comentar</a>
+    </div>
 
 </body>
 </html>
