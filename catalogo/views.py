@@ -18,10 +18,7 @@ def busqueda_resultado(request):
     paginator = Paginator(productos, 5)  # 5 productos por página
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'catalogo/productos.html', {
-        'productos': page_obj.object_list,
-        'page_obj': page_obj
-    })
+    return render(request, 'catalogo/productos.html', {'productos': page_obj.object_list,'page_obj': page_obj})
 def detalles(request,id):
     producto_detalles = get_object_or_404(Producto,id=id)
     return render(request,'catalogo/detalles.html',{'producto_detalles':producto_detalles})
