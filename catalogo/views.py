@@ -14,15 +14,14 @@ def home(request):
     categorias = Categoria.objects.all()
     return render(request, 'catalogo/home.html', {"Productos_home": Productos_home,"categorias": categorias})
 def busqueda_resultado(request):
-    busqueda = request.GET.get('busqueda', '')  
-    if busqueda:
-        Coincidencias = Producto.objects.filter(nombre__icontains=busqueda).order_by('id')
-        
-        # Paginación
-        paginator = Paginator(Coincidencias, 5)
-        page_number = request.GET.get('page')
-        page_obj = paginator.get_page(page_number)
-        return render(request, 'catalogo/busqueda_resultado.html', {'page_obj': page_obj})
+    productos = Producto.objects.all().order_by('id')  # Orden importante para evitar UnorderedObjectListWarning
+    paginator = Paginator(productos, 5)  # 5 productos por página
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'catalogo/productos.html', {
+        'productos': page_obj.object_list,
+        'page_obj': page_obj
+    })
 def detalles(request,id):
     producto_detalles = get_object_or_404(Producto,id=id)
     return render(request,'catalogo/detalles.html',{'producto_detalles':producto_detalles})
