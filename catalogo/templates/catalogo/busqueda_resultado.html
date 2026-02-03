@@ -28,18 +28,16 @@
         {% endif %}
 
         <div class="paginacion">
-            {%if page%}
-                {% if page_obj.has_previous %}
-                    <a href="?page=1" class="pagina-btn">Primera</a>
-                    <a href="?page={{ page_obj.previous_page_number }}" class="pagina-btn">Anterior</a>
-                {% endif %}
+            {% if page_obj.has_previous %}
+                <a href="?page=1" class="pagina-btn">Primera</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="pagina-btn">Anterior</a>
+            {% endif %}
 
-                <span class="pagina-actual">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+            <span class="pagina-actual">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
 
-                {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}" class="pagina-btn">Siguiente</a>
-                    <a href="?page={{ page_obj.paginator.num_pages }}" class="pagina-btn">Última</a>
-                {% endif %}
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="pagina-btn">Siguiente</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="pagina-btn">Última</a>
             {% endif %}
         </div>
     </div>
