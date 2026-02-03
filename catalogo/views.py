@@ -16,10 +16,12 @@ def home(request):
 def busqueda_resultado(request):
     busqueda = request.GET.get('busqueda', '')  
     if busqueda:
-        Coincidencias = Producto.objects.filter(nombre__icontains=busqueda)
-        Coincidencias = Paginator(Coincidencias,5)
+        Coincidencias = Producto.objects.filter(nombre__icontains=busqueda).order_by('id')
+        
+        # Paginación
+        paginator = Paginator(Coincidencias, 5)
         page_number = request.GET.get('page')
-        page_obj = Coincidencias.get_page(page_number)
+        page_obj = paginator.get_page(page_number)
         return render(request, 'catalogo/busqueda_resultado.html', {'page_obj': page_obj})
 def detalles(request,id):
     producto_detalles = get_object_or_404(Producto,id=id)
