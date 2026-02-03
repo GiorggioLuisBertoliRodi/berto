@@ -8,3 +8,4 @@ class CategoriaAdmin(admin.ModelAdmin):
 @admin.register(Producto)
 class ProductoAdmin(admin.ModelAdmin):
     list_display = ("nombre", "categoria", "precio", "imagen")
+    search_fields = ("nombre",)
