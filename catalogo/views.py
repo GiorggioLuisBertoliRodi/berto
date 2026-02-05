@@ -5,6 +5,8 @@ from .models import *
 from .forms import ComentarioForm
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+
 
 # Create your views here.
 
@@ -20,14 +22,14 @@ from .models import Producto
 
 def busqueda_resultado(request):
     # Texto de búsqueda
-    query = request.GET.get('q', '').strip()
+    query = request.GET.get('q', '')
 
     # Query base (ordenado para evitar warnings de paginación)
     productos_qs = Producto.objects.all().order_by('id')
 
     # Filtro por nombre (búsqueda)
     if query:
-        productos_qs = productos_qs.filter(nombre__icontains=query)
+        productos_qs = productos_qs.filter(Q(nombre__icontains=query) | Q(descripcion__icontains=query))
 
     # Paginación
     paginator = Paginator(productos_qs, 5)  # 5 productos por página
