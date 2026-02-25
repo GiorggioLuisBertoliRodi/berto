@@ -4,6 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Verificación Google Search Console -->
+    <meta name="google-site-verification" content="sS4kLFNSJIMXjQoxPlimomLwl3FhnqUWGWRAaSIH9iQ" />
+
     <title>Inicio - Productos Destacados</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
@@ -13,6 +17,7 @@
     <div class="avatar">
         <img src="{% static 'productos/logo_unik.jpg' %}" alt="Logo Unik">
     </div>
+
     <div class="auth-links">
     {% if user.is_authenticated %}
         <span class="user-greeting">Hola, {{ user.username }}!</span>
@@ -23,66 +28,59 @@
     {% endif %}
     </div>
 
-
     <form method="GET" action="{% url 'busqueda_resultado' %}" class="buscador">
-    <input
-        type="text"
-        name="q"
-        placeholder="Buscar productos..."
-        value="{{ query }}"
-    >
-    <button type="submit">Buscar</button>
-</form>
+        <input
+            type="text"
+            name="q"
+            placeholder="Buscar productos..."
+            value="{{ query }}"
+        >
+        <button type="submit">Buscar</button>
+    </form>
 
+    <h1>Productos Destacados</h1>
 
-        <h1>Productos Destacados</h1>
-    </header>
-
-
-
-        <!-- GRID DE PRODUCTOS -->
-        {% if Productos_home %}
-            <div class="productos-grid">
-                {% for producto in Productos_home %}
-                    <div class="producto-card">
-                        <h3 class="producto-nombre">{{ producto.nombre }}</h3>
-                        <div class="producto-imagen">
-                            <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
-                        </div>
-                        <p class="producto-precio">₲ {{ producto.precio }}</p>
-                        <a class="btn-detalles" href="{% url 'detalles' producto.id %}">Detalles</a>
+    <!-- GRID DE PRODUCTOS -->
+    {% if Productos_home %}
+        <div class="productos-grid">
+            {% for producto in Productos_home %}
+                <div class="producto-card">
+                    <h3 class="producto-nombre">{{ producto.nombre }}</h3>
+                    <div class="producto-imagen">
+                        <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
                     </div>
-                {% endfor %}
-            </div>
-        {% else %}
-            <p>No hay productos para mostrar.</p>
-        {% endif %}
-        <nav class="menu-categorias">
-    <ul class="lista-categorias">
-        <h1 class="titulo-categorias">Categorias</h1>
-        {% for categoria in categorias %}
-            <li>
-                <a href="{% url 'productos_por_categoria' categoria.id %}">
-                    {% if categoria.imagen %}
-                        <div class="categoria-imagen">
-                            <img src="{{ categoria.imagen.url }}" alt="{{ categoria.nombre }}">
-                        </div>
-                    {% endif %}
-                    <span class="categoria-nombre">{{ categoria.nombre }}</span>
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-</nav>
-
-
-
-        <!-- REDES SOCIALES -->
-        <div class="redes">
-            <p>Redes Sociales:</p>
-            <a href="https://www.instagram.com/unik.py/">Instagram</a>
-            <a href="https://www.tiktok.com/@unik.py?_r=1&_t=ZM-92pr1lti9o8">Tiktok</a>
+                    <p class="producto-precio">₲ {{ producto.precio }}</p>
+                    <a class="btn-detalles" href="{% url 'detalles' producto.id %}">Detalles</a>
+                </div>
+            {% endfor %}
         </div>
+    {% else %}
+        <p>No hay productos para mostrar.</p>
+    {% endif %}
+
+    <nav class="menu-categorias">
+        <ul class="lista-categorias">
+            <h1 class="titulo-categorias">Categorias</h1>
+            {% for categoria in categorias %}
+                <li>
+                    <a href="{% url 'productos_por_categoria' categoria.id %}">
+                        {% if categoria.imagen %}
+                            <div class="categoria-imagen">
+                                <img src="{{ categoria.imagen.url }}" alt="{{ categoria.nombre }}">
+                            </div>
+                        {% endif %}
+                        <span class="categoria-nombre">{{ categoria.nombre }}</span>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+
+    <!-- REDES SOCIALES -->
+    <div class="redes">
+        <p>Redes Sociales:</p>
+        <a href="https://www.instagram.com/unik.py/">Instagram</a>
+        <a href="https://www.tiktok.com/@unik.py?_r=1&_t=ZM-92pr1lti9o8">Tiktok</a>
     </div>
 
 </body>
