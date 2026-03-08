@@ -21,13 +21,14 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "insecure-dev-key")
 
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
-ALLOWED_HOSTS = os.environ.get(
-    "ALLOWED_HOSTS",
-    "localhost,127.0.0.1"
-).split(",")
+ALLOWED_HOSTS = ["*"]
+
 
 # Agrega tu dominio de Render aquí
-CSRF_TRUSTED_ORIGINS = ["https://berto-7.onrender.com"]
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.onrender.com"
+]
+
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
